@@ -28,9 +28,9 @@ class TransactionResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('category_id')
-                    ->relationship("category", "name")
+                    ->options(Category::selectRaw("CONCAT(IF(is_expense = 1, 'Pengeluaran', 'Pemasukan'), ' .::. ', name) AS name, id")->get()->pluck('name', 'id'))
                     ->required(),
-                Forms\Components\DatePicker::make('date')
+                Forms\Components\DatePicker::make('date_transaction')
                     ->required(),
                 Forms\Components\TextInput::make('amount')
                     ->required()
@@ -64,7 +64,7 @@ class TransactionResource extends Resource
                     ->alignCenter(true)
                     ->width("50px")
                     ->boolean(),
-                Tables\Columns\TextColumn::make('date')
+                Tables\Columns\TextColumn::make('date_transaction')
                     ->label("Tanggal")
                     ->date()
                     ->alignCenter(true)
