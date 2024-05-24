@@ -28,8 +28,8 @@ class WidgetIncomeChart extends ChartWidget
             now();
         $data = Trend::query(Transaction::incomes())
             ->between(
-                start: $startDate,
-                end: $endDate
+                start: $startDate ?? Carbon::now()->subDays(30),
+                end: $endDate ?? Carbon::now()
             )
             ->dateColumn('date_transaction')
             ->perDay()
