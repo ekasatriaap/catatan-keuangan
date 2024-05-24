@@ -41,6 +41,12 @@ WORKDIR /var/www/html
 # Menyalin kode aplikasi yang ada di up folder ke dalam container
 COPY ../ /var/www/html
 
+RUN composer install
+
+# ubah hak akses agar bisa di edit dari komputer local
+RUN chown -R www-data:www-data /var/www
+RUN chmod -R 777 /var/www
+
 # Ekspose port yang digunakan oleh Apache
 EXPOSE 80
 
