@@ -21,8 +21,8 @@ class ListCategories extends ListRecords
     {
         return [
             null => Tab::make('All'),
-            'pengeluaran' => Tab::make()->query(fn ($query) => $query->where('is_expense', '1')),
-            'pemasukkan' => Tab::make()->query(fn ($query) => $query->where('is_expense', '0')),
+            'pengeluaran' => Tab::make()->query(fn ($query) => $query->where('flow', 'pengeluaran')),
+            'pemasukkan' => Tab::make()->query(fn ($query) => $query->where('flow', 'pemasukkan')),
         ];
     }
 }
