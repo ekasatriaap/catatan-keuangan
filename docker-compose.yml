@@ -6,8 +6,6 @@ services:
             - "8080:80"
         volumes:
             - ./:/var/www/html
-            - ./docker-compose/apache:/etc/apache2/sites-available/
-            - ./docker-compose/php:/usr/local/etc/php/
         networks:
             - cash-flow-network
 

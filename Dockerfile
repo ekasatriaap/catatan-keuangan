@@ -32,8 +32,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN a2enmod rewrite headers
 
 # Menyalin file konfigurasi dan skrip yang dibutuhkan
-# COPY ./php.ini /usr/local/etc/php/php.ini
-# COPY ./apache.conf /etc/apache2/sites-available/000-default.conf
+# COPY ./docker-compose/php/my-php.ini /usr/local/etc/php/php.ini
+COPY ./docker-compose/apache/my-apache.conf /etc/apache2/sites-available/000-default.conf
 
 # Setel direktori kerja di dalam container
 WORKDIR /var/www/html
