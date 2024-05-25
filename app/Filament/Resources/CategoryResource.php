@@ -29,7 +29,8 @@ class CategoryResource extends Resource
                 Forms\Components\Radio::make('flow')
                     ->options([
                         'pemasukkan' => 'Pemasukkan',
-                        'pengeluaran' => 'Pengeluaran'
+                        'pengeluaran' => 'Pengeluaran',
+                        'tabungan' => 'Tabungan'
                     ])
                     ->required(),
                 Forms\Components\FileUpload::make('image')
@@ -53,7 +54,8 @@ class CategoryResource extends Resource
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         "pemasukkan" => "success",
-                        "pengeluaran" => "danger"
+                        "pengeluaran" => "danger",
+                        "tabungan" => "info"
                     }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

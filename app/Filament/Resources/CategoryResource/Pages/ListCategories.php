@@ -23,6 +23,7 @@ class ListCategories extends ListRecords
             null => Tab::make('All'),
             'pengeluaran' => Tab::make()->query(fn ($query) => $query->where('flow', 'pengeluaran')),
             'pemasukkan' => Tab::make()->query(fn ($query) => $query->where('flow', 'pemasukkan')),
+            'tabungan' => Tab::make()->query(fn ($query) => $query->where('flow', 'tabungan')),
         ];
     }
 }

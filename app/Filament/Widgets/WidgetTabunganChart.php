@@ -9,24 +9,20 @@ use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
 use Illuminate\Support\Carbon;
 
-class WidgetIncomeChart extends ChartWidget
+class WidgetTabunganChart extends ChartWidget
 {
     use InteractsWithPageFilters;
-
-    protected static ?string $heading = 'Pemasukkan';
-    protected static string $color = "success";
+    protected static ?string $heading = 'Tabungan';
+    protected static string $color = "info";
 
     protected function getData(): array
     {
-        // filter
-        $startDate = !is_null($this->filters['startDate'] ?? null) ?
-            Carbon::parse($this->filters['startDate']) :
-            null;
+        $startDate = !is_null($this->filters['startDate'] ?? null) ? Carbon::parse($this->filters['startDate']) : null;
 
         $endDate = !is_null($this->filters['endDate'] ?? null) ?
             Carbon::parse($this->filters['endDate']) :
             now();
-        $data = Trend::query(Transaction::incomes())
+        $data = Trend::query(Transaction::tabungan())
             ->between(
                 start: $startDate ?? Carbon::now()->subDays(30),
                 end: $endDate ?? Carbon::now()
@@ -37,7 +33,7 @@ class WidgetIncomeChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Pemasukkan',
+                    'label' => 'Tabungan',
                     'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
                 ],
             ],

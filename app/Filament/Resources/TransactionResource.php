@@ -60,7 +60,8 @@ class TransactionResource extends Resource
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         "pemasukkan" => "success",
-                        "pengeluaran" => "danger"
+                        "pengeluaran" => "danger",
+                        'tabungan' => "info"
                     }),
                 Tables\Columns\TextColumn::make('date_transaction')
                     ->label("Tanggal")
