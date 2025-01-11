@@ -22,8 +22,8 @@ class ListTransactions extends ListRecords
     {
         return [
             null => Tab::make('All'),
-            'pengeluaran' => Tab::make()->query(fn ($query) => $query->expenses()),
-            'pemasukkan' => Tab::make()->query(fn ($query) => $query->incomes()),
+            'pengeluaran' => Tab::make()->query(fn ($query) => $query->whereHas("category", fn ($query) => $query->where('is_expense', '1'))),
+            'pemasukkan' => Tab::make()->query(fn ($query) => $query->whereHas("category", fn ($query) => $query->where('is_expense', '0'))),
         ];
     }
 }

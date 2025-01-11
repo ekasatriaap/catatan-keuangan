@@ -28,7 +28,7 @@ class TransactionResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('category_id')
-                    ->options(Category::selectRaw("CONCAT(UCASE(SUBSTRING(flow, 1, 1)), LCASE(SUBSTRING(flow, 2)), ' .::. ', name) AS name, id")->get()->pluck('name', 'id'))
+                    ->options(Category::selectRaw("CONCAT(IF(is_expense = 1, 'Pengeluaran', 'Pemasukan'), ' .::. ', name) AS name, id")->get()->pluck('name', 'id'))
                     ->required(),
                 Forms\Components\DatePicker::make('date_transaction')
                     ->required(),
@@ -55,13 +55,15 @@ class TransactionResource extends Resource
                     ->description(fn (Transaction $record): string => $record->name)
                     ->width("200px")
                     ->searchable(),
-                Tables\Columns\TextColumn::make('category.flow')
+                Tables\Columns\IconColumn::make('category.is_expense')
                     ->label("Tipe")
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        "pemasukkan" => "success",
-                        "pengeluaran" => "danger"
-                    }),
+                    ->trueIcon("heroicon-o-arrow-up-circle")
+                    ->trueColor("danger")
+                    ->falseIcon("heroicon-o-arrow-down-circle")
+                    ->falseColor("success")
+                    ->alignCenter(true)
+                    ->width("50px")
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('date_transaction')
                     ->label("Tanggal")
                     ->date()
@@ -76,8 +78,7 @@ class TransactionResource extends Resource
                     ->width("150px")
                     ->sortable(),
                 Tables\Columns\TextColumn::make('note')
-                    ->searchable()
-                    ->placeholder("Tidak ada note"),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

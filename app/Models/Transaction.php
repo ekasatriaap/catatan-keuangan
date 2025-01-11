@@ -18,11 +18,11 @@ class Transaction extends Model
 
     public function scopeIncomes($query)
     {
-        return $query->whereHas("category", fn ($query) => $query->where('flow', "pemasukkan"));
+        return $query->whereHas("category", fn ($query) => $query->where('is_expense', false));
     }
 
     public function scopeExpenses($query)
     {
-        return $query->whereHas("category", fn ($query) => $query->where('flow', "pengeluaran"));
+        return $query->whereHas("category", fn ($query) => $query->where('is_expense', true));
     }
 }

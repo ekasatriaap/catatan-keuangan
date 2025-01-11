@@ -26,11 +26,7 @@ class CategoryResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Radio::make('flow')
-                    ->options([
-                        'pemasukkan' => 'Pemasukkan',
-                        'pengeluaran' => 'Pengeluaran'
-                    ])
+                Forms\Components\Toggle::make('is_expense')
                     ->required(),
                 Forms\Components\FileUpload::make('image')
                     ->image()
@@ -48,13 +44,15 @@ class CategoryResource extends Resource
                     ->width("50px"),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('flow')
+                Tables\Columns\IconColumn::make('is_expense')
                     ->label("Tipe")
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        "pemasukkan" => "success",
-                        "pengeluaran" => "danger"
-                    }),
+                    ->trueIcon("heroicon-o-arrow-up-circle")
+                    ->trueColor("danger")
+                    ->falseIcon("heroicon-o-arrow-down-circle")
+                    ->falseColor("success")
+                    ->alignCenter(true)
+                    ->width("50px")
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
