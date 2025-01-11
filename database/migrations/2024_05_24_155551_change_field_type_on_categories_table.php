@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('categories', function (Blueprint $table) {
             $table->dropColumn("is_expense");
-            $table->after("image", fn ($table) => $table->enum("flow", ['pemasukkan', 'pengeluaran', 'tabungan']));
+            $table->after("image", fn ($table) => $table->enum("flow", ['pemasukkan', 'pengeluaran']));
         });
     }
 

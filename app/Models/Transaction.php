@@ -25,9 +25,4 @@ class Transaction extends Model
     {
         return $query->whereHas("category", fn ($query) => $query->where('flow', "pengeluaran"));
     }
-
-    public function scopeTabungan($query)
-    {
-        return $query->whereHas("category", fn ($query) => $query->where('flow', "tabungan"));
-    }
 }

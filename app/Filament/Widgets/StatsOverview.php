@@ -25,11 +25,9 @@ class StatsOverview extends BaseWidget
         // query jumlah pemasukkan
         $pemasukkan = Transaction::incomes()->whereBetween("date_transaction", [$startDate, $endDate])->sum("amount");
         $pengeluaran = Transaction::expenses()->whereBetween("date_transaction", [$startDate, $endDate])->sum("amount");
-        $tabungan = Transaction::tabungan()->whereBetween("date_transaction", [$startDate, $endDate])->sum("amount");
         return [
             Stat::make('Total Pemasukkan', $pemasukkan),
             Stat::make('Total Pengeluaran', $pengeluaran),
-            Stat::make("Tabungan", $tabungan),
             Stat::make('Selisih', $pemasukkan - $pengeluaran),
         ];
     }
