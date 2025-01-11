@@ -12,18 +12,12 @@ services:
     mariadb:
         image: mariadb
         container_name: mariadb
+        ports:
+            - "3306:3306"
         environment:
             MYSQL_ROOT_PASSWORD: el.psy.congroo
         volumes:
             - mariadb-data:/var/lib/mysql
-        networks:
-            - cash-flow-network
-
-    adminer:
-        image: adminer
-        container_name: adminer
-        ports:
-            - 8081:8080
         networks:
             - cash-flow-network
 

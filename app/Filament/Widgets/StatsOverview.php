@@ -26,9 +26,9 @@ class StatsOverview extends BaseWidget
         $pemasukkan = Transaction::incomes()->whereBetween("date_transaction", [$startDate, $endDate])->sum("amount");
         $pengeluaran = Transaction::expenses()->whereBetween("date_transaction", [$startDate, $endDate])->sum("amount");
         return [
-            Stat::make('Total Pemasukkan', $pemasukkan),
-            Stat::make('Total Pengeluaran', $pengeluaran),
-            Stat::make('Selisih', $pemasukkan - $pengeluaran),
+            Stat::make('Total Pemasukkan', "Rp. " . number_format($pemasukkan, 0, ',', '.')),
+            Stat::make('Total Pengeluaran', "Rp. " . number_format($pengeluaran, 0, ',', '.')),
+            Stat::make('Selisih', "Rp. " . number_format(((int)$pemasukkan - $pengeluaran), 0, ',', '.')),
         ];
     }
 }
