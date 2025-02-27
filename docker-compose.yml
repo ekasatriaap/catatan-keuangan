@@ -1,11 +1,17 @@
 services:
     app:
-        build: .
+        build:
+            context: .
+            dockerfile: Dockerfile
+        # image: ekasatriaap/apc:8.2.19
         container_name: cash-flow-app
+        env_file: .env
         ports:
-            - "8080:80"
+            - "8080:8000"
         volumes:
-            - ./:/var/www/html
+            - ./:/app
+            # - ./docker-compose/apache:/etc/apache2/sites-available
+        command: bash -c "php artisan octane:frankenphp"
         networks:
             - cash-flow-network
 
